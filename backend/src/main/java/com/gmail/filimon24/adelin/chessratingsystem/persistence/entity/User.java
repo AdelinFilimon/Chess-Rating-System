@@ -53,4 +53,7 @@ public class User {
     @Column(length = Constants.statusLength)
     private String status;
 
+    @Column
+    private Boolean isAdministrator;
+
 }

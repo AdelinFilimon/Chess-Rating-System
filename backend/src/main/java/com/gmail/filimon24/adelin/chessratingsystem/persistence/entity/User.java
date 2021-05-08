@@ -1,6 +1,7 @@
 package com.gmail.filimon24.adelin.chessratingsystem.persistence.entity;
 
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
+import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.Country;
 import lombok.Data;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,45 +16,44 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = Constants.userAttributesLength)
+    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String username;
 
-    @Column(nullable = false, length = Constants.userAttributesLength)
+    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String firstName;
 
-    @Column(nullable = false, length = Constants.userAttributesLength)
+    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String lastName;
 
-    @Column(nullable = false, length = Constants.passwordLength)
+    @Column(nullable = false, length = Constants.USER_PASSWORD_LENGTH)
     private String password;
 
-    @Column(nullable = false, length = Constants.userAttributesLength)
+    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String email;
 
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = Constants.datetimeFormat)
+    @Column
+    @DateTimeFormat(pattern = Constants.DATETIME_FORMAT)
     private DateTime birthday;
 
-    @Column(nullable = false, length = Constants.countryFieldLength)
-    @Enumerated(EnumType.STRING)
+    @Column(length = Constants.COUNTRY_FIELD_LENGTH)
     private Country country;
 
-    @Column(nullable = false)
+    @Column
     private Integer rating;
 
-    @Column(nullable = false)
+    @Column
     private Integer nrOfWins;
 
-    @Column(nullable = false)
+    @Column
     private Integer nrOfDraws;
 
-    @Column(nullable = false)
+    @Column
     private Integer nrOfLosses;
 
-    @Column(length = Constants.statusLength)
+    @Column(length = Constants.USER_STATUS_LENGTH)
     private String status;
 
-    @Column
+    @Column(nullable = false)
     private Boolean isAdministrator;
 
 }

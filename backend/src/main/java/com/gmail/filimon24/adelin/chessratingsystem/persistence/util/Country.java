@@ -1,4 +1,4 @@
-package com.gmail.filimon24.adelin.chessratingsystem.persistence.entity;
+package com.gmail.filimon24.adelin.chessratingsystem.persistence.util;
 
 import lombok.Getter;
 
@@ -14,10 +14,10 @@ public enum Country {
     UNITED_STATES_OF_AMERICA("USA"),
     GERMANY("DE");
 
-    private final String acronym;
+    private final String code;
 
-    Country(String acronym) {
-        this.acronym = acronym;
+    Country(String code) {
+        this.code = code;
     }
 
 }

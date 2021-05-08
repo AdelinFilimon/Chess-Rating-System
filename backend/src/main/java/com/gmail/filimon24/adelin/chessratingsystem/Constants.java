@@ -6,5 +6,5 @@ public final class Constants {
     public static final int passwordLength = 60;
     public static final int statusLength = 128;
 
-    public static final String dateTimeFormat = "dd/MM/yyyy HH:mm";
+    public static final String datetimeFormat = "dd/MM/yyyy HH:mm";
 }

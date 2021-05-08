@@ -31,7 +31,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = Constants.dateTimeFormat)
+    @DateTimeFormat(pattern = Constants.datetimeFormat)
     private DateTime birthday;
 
     @Column(nullable = false, length = Constants.countryFieldLength)

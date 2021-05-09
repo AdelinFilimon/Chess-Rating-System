@@ -15,23 +15,23 @@ public class GameHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne
     private User whitePiecesPlayer;
 
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne
     private User blackPiecesPlayer;
 
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne
     private User winner;
 
-    @Column
+    @Column(nullable = false)
     @DateTimeFormat(pattern = Constants.DATETIME_FORMAT)
     private DateTime startingDate;
 
-    @Column
+    @Column(nullable = false)
     private Integer durationInSeconds;
 
 }

@@ -3,10 +3,12 @@ package com.gmail.filimon24.adelin.chessratingsystem.persistence.entity;
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.Country;
 import lombok.Data;
+import lombok.ToString;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -55,5 +57,17 @@ public class User {
 
     @Column(nullable = false)
     private Boolean isAdministrator;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "whitePiecesPlayer")
+    private List<GameHistory> whitePiecesGames;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "blackPiecesPlayer")
+    private List<GameHistory> blackPiecesGames;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "winner")
+    private List<GameHistory> winningGames;
 
 }

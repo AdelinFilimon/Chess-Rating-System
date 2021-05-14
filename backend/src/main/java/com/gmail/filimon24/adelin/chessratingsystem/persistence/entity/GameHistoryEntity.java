@@ -9,7 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class GameHistory {
+@Table(name = "game_history")
+public class GameHistoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +18,15 @@ public class GameHistory {
 
     @JoinColumn(nullable = false)
     @ManyToOne
-    private User whitePiecesPlayer;
+    private UserEntity whitePiecesPlayer;
 
     @JoinColumn(nullable = false)
     @ManyToOne
-    private User blackPiecesPlayer;
+    private UserEntity blackPiecesPlayer;
 
     @JoinColumn(nullable = false)
     @ManyToOne
-    private User winner;
+    private UserEntity winner;
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = Constants.DATETIME_FORMAT)

@@ -2,9 +2,8 @@ package com.gmail.filimon24.adelin.chessratingsystem.persistence.entity;
 
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.Country;
-import lombok.Data;
-import lombok.ToString;
-import org.joda.time.DateTime;
+import lombok.*;
+import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,13 +11,17 @@ import java.util.List;
 
 @Entity
 @Data
-public class User {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "user")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
+    @Column(unique = true, nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String username;
 
     @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
@@ -30,12 +33,12 @@ public class User {
     @Column(nullable = false, length = Constants.USER_PASSWORD_LENGTH)
     private String password;
 
-    @Column(nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
+    @Column(unique = true, nullable = false, length = Constants.USER_ATTRIBUTE_LENGTH)
     private String email;
 
     @Column
-    @DateTimeFormat(pattern = Constants.DATETIME_FORMAT)
-    private DateTime birthday;
+    @DateTimeFormat(pattern = Constants.BIRTHDAY_FORMAT)
+    private LocalDate birthday;
 
     @Column(length = Constants.COUNTRY_FIELD_LENGTH)
     private Country country;
@@ -60,14 +63,14 @@ public class User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "whitePiecesPlayer")
-    private List<GameHistory> whitePiecesGames;
+    private List<GameHistoryEntity> whitePiecesGames;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "blackPiecesPlayer")
-    private List<GameHistory> blackPiecesGames;
+    private List<GameHistoryEntity> blackPiecesGames;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "winner")
-    private List<GameHistory> winningGames;
+    private List<GameHistoryEntity> winningGames;
 
 }

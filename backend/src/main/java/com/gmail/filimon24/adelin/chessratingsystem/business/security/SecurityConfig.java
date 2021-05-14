@@ -1,5 +1,6 @@
 package com.gmail.filimon24.adelin.chessratingsystem.business.security;
 
+import com.gmail.filimon24.adelin.chessratingsystem.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -41,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("users/**").hasAuthority(Constants.ADMINISTRATOR_ROLE_IDENTIFIER)
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -4,10 +4,13 @@ import com.gmail.filimon24.adelin.chessratingsystem.Constants;
 import com.gmail.filimon24.adelin.chessratingsystem.business.model.User;
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.entity.UserEntity;
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.Country;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.modelmapper.*;
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,12 +29,12 @@ public class ModelMapperConfig {
     }
 
     private PropertyMap<User, UserEntity> userUserEntityMap() {
-        Converter<String, DateTime> stringDateTimeConverter =  new AbstractConverter<String, DateTime>() {
+        Converter<String, LocalDate> stringLocalDateConverter =  new AbstractConverter<String, LocalDate>() {
             @Override
-            protected DateTime convert(String s) {
+            protected LocalDate convert(String s) {
                 if (s == null) return null;
                 DateTimeFormatter formatter = DateTimeFormat.forPattern(Constants.BIRTHDAY_FORMAT);
-                return formatter.parseDateTime(s);
+                return formatter.parseLocalDate(s);
             }
         };
 
@@ -48,19 +51,19 @@ public class ModelMapperConfig {
         return new PropertyMap<User, UserEntity>() {
             @Override
             protected void configure() {
-                using(stringDateTimeConverter).map(source.getBirthday()).setBirthday(null);
+                using(stringLocalDateConverter).map(source.getBirthday()).setBirthday(null);
                 using(stringCountryConverter).map(source.getCountry()).setCountry(null);
             }
         };
     }
 
     private PropertyMap<UserEntity, User> userEntityUserMap() {
-        Converter<DateTime, String> dateTimeStringConverter = new AbstractConverter<DateTime, String>() {
+        Converter<LocalDate, String> dateTimeStringConverter = new AbstractConverter<LocalDate, String>() {
             @Override
-            protected String convert(DateTime dateTime) {
-                if (dateTime == null) return null;
+            protected String convert(LocalDate localDate) {
+                if (localDate == null) return null;
                 DateTimeFormatter formatter = DateTimeFormat.forPattern(Constants.BIRTHDAY_FORMAT);
-                return dateTime.toString(formatter);
+                return localDate.toString(formatter);
             }
         };
 

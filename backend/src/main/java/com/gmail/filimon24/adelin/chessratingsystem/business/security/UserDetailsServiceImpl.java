@@ -1,7 +1,7 @@
-package com.gmail.filimon24.adelin.chessratingsystem.business.auth;
+package com.gmail.filimon24.adelin.chessratingsystem.business.security;
 
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.UserRepository;
-import com.gmail.filimon24.adelin.chessratingsystem.persistence.entity.User;
+import com.gmail.filimon24.adelin.chessratingsystem.persistence.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImp implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) throw new UsernameNotFoundException(username);
-        return new UserDetailsImp(user);
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) throw new UsernameNotFoundException(username);
+        return new UserDetailsImpl(userEntity);
     }
 }

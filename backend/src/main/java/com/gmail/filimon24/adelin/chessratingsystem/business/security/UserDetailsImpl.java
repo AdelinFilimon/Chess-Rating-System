@@ -1,7 +1,7 @@
-package com.gmail.filimon24.adelin.chessratingsystem.business.auth;
+package com.gmail.filimon24.adelin.chessratingsystem.business.security;
 
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
-import com.gmail.filimon24.adelin.chessratingsystem.persistence.entity.User;
+import com.gmail.filimon24.adelin.chessratingsystem.persistence.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,16 +10,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImp implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private final String username;
     private final String password;
     private final Boolean isAdministrator;
 
-    public UserDetailsImp(User user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.isAdministrator = user.getIsAdministrator();
+    public UserDetailsImpl(UserEntity userEntity) {
+        this.username = userEntity.getUsername();
+        this.password = userEntity.getPassword();
+        this.isAdministrator = userEntity.getIsAdministrator();
     }
 
     @Override

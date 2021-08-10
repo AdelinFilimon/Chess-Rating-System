@@ -1,7 +1,7 @@
 package com.gmail.filimon24.adelin.chessratingsystem.persistence.entity;
 
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
-import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.Country;
+import com.gmail.filimon24.adelin.chessratingsystem.persistence.util.CountryField;
 import lombok.*;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,11 +37,11 @@ public class UserEntity {
     private String email;
 
     @Column
-    @DateTimeFormat(pattern = Constants.BIRTHDAY_FORMAT)
-    private LocalDate birthday;
+    @DateTimeFormat(pattern = Constants.DATE_OF_BIRTH_FORMAT)
+    private LocalDate dateOfBirth;
 
     @Column(length = Constants.COUNTRY_FIELD_LENGTH)
-    private Country country;
+    private CountryField country;
 
     @Column
     private Integer rating;
@@ -68,9 +68,5 @@ public class UserEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "blackPiecesPlayer")
     private List<GameHistoryEntity> blackPiecesGames;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "winner")
-    private List<GameHistoryEntity> winningGames;
 
 }

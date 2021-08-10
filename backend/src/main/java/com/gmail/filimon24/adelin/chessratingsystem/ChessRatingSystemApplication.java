@@ -31,6 +31,10 @@ public class ChessRatingSystemApplication {
                     .firstName(Constants.SUPER_ADMIN_FIRST_NAME)
                     .lastName(Constants.SUPER_ADMIN_LAST_NAME)
                     .email(Constants.SUPER_ADMIN_EMAIL)
+                    .rating(1200)
+                    .nrOfWins(0)
+                    .nrOfLosses(0)
+                    .nrOfDraws(0)
                     .isAdministrator(true)
                     .build();
 

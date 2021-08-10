@@ -1,40 +1,66 @@
 package com.gmail.filimon24.adelin.chessratingsystem.controller;
 
-import com.gmail.filimon24.adelin.chessratingsystem.business.exception.InvalidAttributeException;
-import com.gmail.filimon24.adelin.chessratingsystem.business.exception.UserAlreadyExistsException;
-import com.gmail.filimon24.adelin.chessratingsystem.business.service.UserService;
+import com.gmail.filimon24.adelin.chessratingsystem.business.dto.UserProfileResponse;
+import com.gmail.filimon24.adelin.chessratingsystem.business.dto.UserRegistrationRequest;
 import com.gmail.filimon24.adelin.chessratingsystem.business.model.User;
+import com.gmail.filimon24.adelin.chessratingsystem.business.security.UserDetailsImpl;
+import com.gmail.filimon24.adelin.chessratingsystem.business.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<?> getUsers() {
-        try {
-            return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest) {
+        userService.registerUser(userRegistrationRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
-        } catch (InvalidAttributeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (UserAlreadyExistsException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<?> insertUser(@RequestBody User user) {
+        userService.insertUser(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getUsers() {
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/my-profile")
+    public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetailsImpl principal) {
+        UserProfileResponse profile = userService.getProfileByUsername(principal.getUsername());
+        return new ResponseEntity<>(profile, HttpStatus.OK);
+    }
+
+    @GetMapping("/profiles/{username}")
+    public ResponseEntity<?> getProfile(@PathVariable String username) {
+        UserProfileResponse profile = userService.getProfileByUsername(username);
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 }

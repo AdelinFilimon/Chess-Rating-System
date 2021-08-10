@@ -1,6 +1,7 @@
 package com.gmail.filimon24.adelin.chessratingsystem.business.exception;
 
-public enum AttributeType {
+public enum UserField {
+    ID,
     USERNAME,
     PASSWORD,
     FIRST_NAME,

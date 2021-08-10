@@ -1,9 +1,11 @@
 package com.gmail.filimon24.adelin.chessratingsystem.persistence.util;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-public enum Country {
+@RequiredArgsConstructor
+public enum CountryField {
     ROMANIA("RO"),
     ITALY("IT"),
     SPAIN("ES"),
@@ -15,9 +17,5 @@ public enum Country {
     GERMANY("DE");
 
     private final String code;
-
-    Country(String code) {
-        this.code = code;
-    }
 
 }

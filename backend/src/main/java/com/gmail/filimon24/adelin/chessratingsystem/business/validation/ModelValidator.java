@@ -1,9 +1,9 @@
 package com.gmail.filimon24.adelin.chessratingsystem.business.validation;
 
-import com.gmail.filimon24.adelin.chessratingsystem.business.exception.AttributeType;
+import com.gmail.filimon24.adelin.chessratingsystem.business.exception.UserField;
 
 import java.util.List;
 
 public interface ModelValidator<T> extends DefaultValidator<T> {
-    List<AttributeType> getInvalidAttributes(T t);
+    List<UserField> getInvalidAttributes(T t);
 }

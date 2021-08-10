@@ -1,6 +1,6 @@
 package com.gmail.filimon24.adelin.chessratingsystem.business.validation;
 
-import com.gmail.filimon24.adelin.chessratingsystem.business.exception.AttributeType;
+import com.gmail.filimon24.adelin.chessratingsystem.business.exception.UserField;
 import com.gmail.filimon24.adelin.chessratingsystem.business.model.User;
 import com.gmail.filimon24.adelin.chessratingsystem.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class UserValidator implements ModelValidator<User> {
     }
 
     @Override
-    public List<AttributeType> getInvalidAttributes(User user) {
-        List<AttributeType> invalidAttributes = new ArrayList<>();
+    public List<UserField> getInvalidAttributes(User user) {
+        List<UserField> invalidAttributes = new ArrayList<>();
 
-        if (!usernameValidator.isValid(user.getUsername())) invalidAttributes.add(AttributeType.USERNAME);
-        if (!emailValidator.isValid(user.getEmail())) invalidAttributes.add(AttributeType.EMAIL);
-        if (!passwordValidator.isValid(user.getPassword())) invalidAttributes.add(AttributeType.PASSWORD);
+        if (!usernameValidator.isValid(user.getUsername())) invalidAttributes.add(UserField.USERNAME);
+        if (!emailValidator.isValid(user.getEmail())) invalidAttributes.add(UserField.EMAIL);
+        if (!passwordValidator.isValid(user.getPassword())) invalidAttributes.add(UserField.PASSWORD);
 
         return invalidAttributes;
     }

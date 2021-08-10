@@ -1,4 +1,4 @@
-package com.gmail.filimon24.adelin.chessratingsystem.business.security;
+package com.gmail.filimon24.adelin.chessratingsystem.business.config;
 
 import com.gmail.filimon24.adelin.chessratingsystem.Constants;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,10 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("users/**").hasAuthority(Constants.ADMINISTRATOR_ROLE_IDENTIFIER)
+                .antMatchers("users/", "users/{id}").hasAuthority(Constants.ADMINISTRATOR_ROLE_IDENTIFIER)
+                .antMatchers("game/**", "users/my-profile", "users/profiles/{username}").hasAnyAuthority(Constants.PLAYER_ROLE_IDENTIFIER,
+                                                                    Constants.ADMINISTRATOR_ROLE_IDENTIFIER)
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers("/users/register/**");
     }
 }
